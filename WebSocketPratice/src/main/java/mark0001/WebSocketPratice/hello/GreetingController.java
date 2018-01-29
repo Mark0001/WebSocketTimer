@@ -16,8 +16,7 @@ public class GreetingController {
     public Greeting greeting(HelloMessage message) throws Exception {
         Thread.sleep(1000); // simulated delay
 
-        logger.debug("do Something in the GreetingController");
-        System.out.println("do Something in the GreetingController");
+        logger.info("do Something in the GreetingController");
 
         return new Greeting("Hello, " + message.getName() + "!");
     }

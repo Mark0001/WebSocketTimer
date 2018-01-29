@@ -6,6 +6,8 @@ import java.util.TimerTask;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
@@ -13,11 +15,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class WebSocketUtil {
 
+    private static final Logger logger = LoggerFactory.getLogger(WebSocketUtil.class);
+
     @Autowired
     private final SimpMessagingTemplate messageTemplate = null;
 
     @PostConstruct
     public void init() {
+        logger.info("WebSocketUtil Initialized");
         final Timer timer = new Timer();
         timer.schedule(new DateTask(), 1000, 1000);
     }
@@ -29,7 +34,6 @@ public class WebSocketUtil {
     class DateTask extends TimerTask {
         @Override
         public void run() {
-            System.out.println("任務時間：" + new Date());
             WebSocketUtil.this.messageTemplate.convertAndSend("/topic/time", new Date().toString());
         }
     }
