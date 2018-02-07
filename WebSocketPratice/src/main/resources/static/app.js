@@ -58,9 +58,9 @@ function getNotice(){
 	stompClient = Stomp.over(socket);
 	stompClient.connect({}, function(frame) {
 		console.log('Connected: ' + frame);
-		stompClient.subscribe('/topic/eatTheNotice', function(time) {
-			console.log(time.body);
-			alert("吃通知囉")
+		stompClient.subscribe('/topic/eatTheNotice', function(message) {
+			console.log(message.body);
+			alert(message.body)
 		});
 	});
 }
