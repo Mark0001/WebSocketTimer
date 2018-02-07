@@ -18,9 +18,13 @@ public class WebSocketUtil {
     private final SimpMessagingTemplate messageTemplate = null;
 
     @Scheduled(fixedRate = 1000)
-    public void callWebSocket() {
+    private void callWebSocket() {
         logger.debug("send to page");
         WebSocketUtil.this.messageTemplate.convertAndSend("/topic/time", new Date().toString());
+    }
+
+    public void callEatTheNotice(String notice) {
+        WebSocketUtil.this.messageTemplate.convertAndSend("/topic/eatTheNotice", notice);
     }
 
 }

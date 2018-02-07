@@ -53,6 +53,18 @@ function getTime(){
 	});
 }
 
+function getNotice(){
+	var socket = new SockJS('/gs-guide-websocket');
+	stompClient = Stomp.over(socket);
+	stompClient.connect({}, function(frame) {
+		console.log('Connected: ' + frame);
+		stompClient.subscribe('/topic/eatTheNotice', function(time) {
+			console.log(time.body);
+			alert("吃通知囉")
+		});
+	});
+}
+
 $(function() {
 	$("form").on('submit', function(e) {
 		e.preventDefault();
@@ -68,4 +80,5 @@ $(function() {
 	});
 	
 	getTime();
+	getNotice();
 });
